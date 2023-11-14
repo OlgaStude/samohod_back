@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->renderable(function (AuthenticationException $e, $request) {
-            if ($request->is('api/*')) {
+            if ($request->is('api-samohod/*')) {
                 return response()->json([
                 'warning' => [
                     "code"=> 403,

@@ -115,11 +115,14 @@ class userController extends Controller
         
         auth()->user()->tokens()->delete();
 
-        return [
+        $response = [
             'content'=>[
                 'message' => 'Выход'
             ]
         ];
+
+        return response($response, 200)->header('status', '200');
+
     }
     
 }

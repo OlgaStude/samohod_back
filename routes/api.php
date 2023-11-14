@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\productsController;
 use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/signup', [userController::class, 'register']);
 Route::post('/login', [userController::class, 'login']);
+
+
+Route::get('/products', [productsController::class, 'show']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
