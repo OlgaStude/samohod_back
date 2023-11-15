@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\cartController;
+use App\Http\Controllers\orderController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
@@ -24,10 +26,12 @@ Route::get('/products', [productsController::class, 'show']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/test', function(){
-        return 'hello';
-    });
     Route::post('/logout', [userController::class, 'logout']);
+
+    Route::post('/cart/{product_id}', [cartController::class, 'add']);
+    Route::delete('/cart/{id}', [cartController::class, 'delete']);
+    Route::get('/cart', [cartController::class, 'show']);
+
+    Route::post('/order', [orderController::class, 'order']);
+    Route::get('/order', [orderController::class, 'show']);
 });
-
-
