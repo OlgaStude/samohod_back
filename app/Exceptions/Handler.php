@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Carbon\Exceptions\Exception as ExceptionsException;
+use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -38,16 +41,24 @@ class Handler extends ExceptionHandler
         $this->renderable(function (AuthenticationException $e, $request) {
             if ($request->is('api-samohod/*')) {
                 return response()->json([
-                'warning' => [
-                    "code"=> 403,
-                    'message'=> 'Гостевой доступ запрещен'
-                ]
+                    'warning' => [
+                        "code"=> 403,
+                        'message'=> 'Гостевой доступ запрещен'
+                    ]
         
             
-            ], 403)->header('status', '403');
-        }
-   });
-
-   
+                ], 403)->header('status', '403');
+            }
+        });
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api-samohod/*')) {
+                return response()->json([
+                    'code' => '404',
+                    'message' => 'Не найдено'
+                ], 404)->header('status', '404');
+            }
+        });
 }
+
+
 }

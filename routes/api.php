@@ -34,4 +34,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/order', [orderController::class, 'order']);
     Route::get('/order', [orderController::class, 'show']);
+
+    Route::post('/product', [productsController::class, 'add']);
+    Route::delete('/product/{id}', [productsController::class, 'delete']);
+    Route::patch('/product/{id}', [productsController::class, 'update']);
+
 });

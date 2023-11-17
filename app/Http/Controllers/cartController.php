@@ -23,7 +23,7 @@ class cartController extends Controller
                 ],
             ];
 
-            return response($response, 204)->header('status', '204');
+            return response($response, 422)->header('status', '422');
         }
 
         Cart::create(['users_id' => auth()->user()->id, 'products_id' => $product_id]);
@@ -65,13 +65,12 @@ class cartController extends Controller
         }
 
 
-
         $response = [
             'content' => [
                 'message' => 'Позиции не существует'
             ]
         ];
 
-        return response($response, 204)->header('status', '204');
+        return response($response, 422)->header('status', '422');
     }
 }
